@@ -15,6 +15,7 @@ using IdentityServer4ASPNETIdentity.Services;
 using System.Reflection;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using MySQL.Data.Entity.Extensions;
 
 namespace IdentityServer4ASPNETIdentity
 {
@@ -42,12 +43,15 @@ namespace IdentityServer4ASPNETIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Configuration.GetConnectionString("MySqlDataAccessProvider");
+//            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(connectionString));
+                //options.UseSqlServer(connectionString));
+                options.UseMySQL(connectionString));
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -65,10 +69,10 @@ namespace IdentityServer4ASPNETIdentity
                 //.AddInMemoryScopes(Config.GetScopes())
                 //.AddInMemoryClients(Config.GetClients())
                 .AddConfigurationStore(builder =>
-                    builder.UseSqlServer(connectionString, options =>
+                    builder.UseMySQL(connectionString, options =>
                         options.MigrationsAssembly(migrationsAssembly)))
                 .AddOperationalStore(builder =>
-                    builder.UseSqlServer(connectionString, options =>
+                    builder.UseMySQL(connectionString, options =>
                         options.MigrationsAssembly(migrationsAssembly)))
                 .AddAspNetIdentity<ApplicationUser>();
         }

@@ -33,7 +33,7 @@ namespace IdentityServer4ASPNETIdentity
                     ClientId = "mvc",
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-                    RequireConsent = false,
+                    RequireConsent = true,
 
                     ClientSecrets =
                     {

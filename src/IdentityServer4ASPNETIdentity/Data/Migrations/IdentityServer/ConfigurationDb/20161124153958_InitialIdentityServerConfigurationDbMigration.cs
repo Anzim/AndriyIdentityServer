@@ -14,6 +14,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AbsoluteRefreshTokenLifetime = table.Column<int>(nullable: false),
                     AccessTokenLifetime = table.Column<int>(nullable: false),
@@ -54,6 +55,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllowUnrestrictedIntrospection = table.Column<bool>(nullable: false),
                     ClaimsRule = table.Column<string>(maxLength: 200, nullable: true),
@@ -77,6 +79,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     Type = table.Column<string>(maxLength: 250, nullable: false),
@@ -98,6 +101,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     Origin = table.Column<string>(maxLength: 150, nullable: false)
@@ -118,6 +122,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     GrantType = table.Column<string>(maxLength: 250, nullable: false)
@@ -138,6 +143,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     Provider = table.Column<string>(maxLength: 200, nullable: false)
@@ -158,6 +164,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     PostLogoutRedirectUri = table.Column<string>(maxLength: 2000, nullable: false)
@@ -178,6 +185,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     RedirectUri = table.Column<string>(maxLength: 2000, nullable: false)
@@ -198,6 +206,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     Scope = table.Column<string>(maxLength: 200, nullable: false)
@@ -218,6 +227,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(maxLength: 2000, nullable: true),
@@ -241,6 +251,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AlwaysIncludeInIdToken = table.Column<bool>(nullable: false),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
@@ -263,6 +274,7 @@ namespace IdentityServer4ASPNETIdentity.Data.Migrations.IdentityServer.Configura
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
                     Expiration = table.Column<DateTime>(nullable: true),
