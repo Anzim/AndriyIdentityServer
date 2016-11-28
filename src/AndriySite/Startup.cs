@@ -62,7 +62,7 @@ namespace AndriySite
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = "http://localhost:5000",
+                Authority = "http://identity.mob-dev.stream",
                 RequireHttpsMetadata = false,
 
                 ClientId = "mvc",

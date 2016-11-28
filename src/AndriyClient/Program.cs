@@ -8,22 +8,24 @@ using Newtonsoft.Json.Linq;
 
 namespace AndriyClient
 {
+    
     public class Program
     {
+        static string _identityServer = "https://identity.mob-dev.stream/";  //"http://localhost:5000"
         private static string _clientAccessToken;
         private static string _tokenEndpoint;
         public static void Main(string[] args)
         {
-            var task = GetTokenEndpoint().ContinueWith(te =>
+            GetTokenEndpoint().ContinueWith(te =>
             {
-                if (!te.IsCompleted)
+                if (te.Status != TaskStatus.RanToCompletion)
                 {
                     Console.WriteLine($"Can not get token endpoint: {te.Exception?.Message}"); 
                     return;
                 }
                 GetClientToken().ContinueWith(t =>
                 {
-                    if (!t.IsCompleted)
+                    if (t.Status != TaskStatus.RanToCompletion)
                     {
                         Console.WriteLine($"Can not get access token: {te.Exception?.Message}");
                         return;
@@ -37,28 +39,36 @@ namespace AndriyClient
 
         private static void ContinuationAction(Task task)
         {
-            var r = GetAliceToken().ContinueWith(t => 
+            if (task.Status != TaskStatus.RanToCompletion)
             {
-                if (!t.IsCompleted)
+                Console.WriteLine($"Can not get identity: {task.Exception?.Message}");
+            }
+            var r = GetAnzimToken().ContinueWith(t => 
+            {
+                if (t.Status != TaskStatus.RanToCompletion)
                 {
-                    Console.WriteLine($"Can not get access token: {t.Exception?.Message}");
+                    Console.WriteLine($"Can not request resource owner with password for user anzim@list.ru: {t.Exception?.Message}");
                     return null;
                 }
                 return t.Result;
-                //GetIdentity(_clientAccessToken).ContinueWith(ContinuationAction);
             });
         }
 
         static async Task GetTokenEndpoint()
         {
             // discover endpoints from metadata
-            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
+            var disco = await DiscoveryClient.GetAsync(_identityServer);
             _tokenEndpoint = disco.TokenEndpoint;
+            if (disco.IsError)
+            {
+                throw new Exception(disco.ErrorType + ": " + disco.Error);
+            }
         }
         static async Task GetClientToken()
         {
             // request token
             var tokenClient = new TokenClient(_tokenEndpoint, "client", "secret");
+            Console.WriteLine("Getting identity");
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync("api1");
 
             if (tokenResponse.IsError)
@@ -87,11 +97,12 @@ namespace AndriyClient
             Console.WriteLine(JArray.Parse(content));
         }
 
-        static async Task<string> GetAliceToken()
+        static async Task<string> GetAnzimToken()
         {
-            // request token
-            var token = new TokenClient(_tokenEndpoint, "ro.client", "ro.secret");
-            var tokenResponse = await token.RequestResourceOwnerPasswordAsync("alice", "password", "api1");
+            // request resource
+            Console.WriteLine($"Requesting resource owner with password for user anzim@list.ru");
+            var tokenClient = new TokenClient(_tokenEndpoint, "ro.client", "ro.secret");
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("anzim@list.ru", "Azo+250472-", "api1");
 
             if (tokenResponse.IsError)
             {

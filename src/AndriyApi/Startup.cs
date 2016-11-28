@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,11 @@ namespace AndriyApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
+            });
+
             services.AddMvc();
         }
 
@@ -39,9 +45,9 @@ namespace AndriyApi
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                Authority = "http://localhost:5000",
+                Authority = "https://identity.mob-dev.stream",
                 ScopeName = "api1",
-
+                //AuthenticationScheme = "HTTPS",
                 RequireHttpsMetadata = false
             });
 
