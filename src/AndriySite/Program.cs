@@ -13,7 +13,7 @@ namespace AndriySite
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://localhost:5002/")
+                .UseUrls("http://localhost:5002/,https://localhost:5002/")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

@@ -47,8 +47,7 @@ namespace AndriyApi
             {
                 Authority = "https://identity.mob-dev.stream",
                 ScopeName = "api1",
-                //AuthenticationScheme = "HTTPS",
-                RequireHttpsMetadata = false
+                RequireHttpsMetadata = true
             });
 
 
