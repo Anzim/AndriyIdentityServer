@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,8 +16,11 @@ namespace AndriySite
 {
     public class Startup
     {
+        private readonly IHostingEnvironment _env;
+
         public Startup(IHostingEnvironment env)
         {
+            _env = env;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -29,6 +35,23 @@ namespace AndriySite
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            var certPath = Configuration.GetValue<String>("SSL:X509CertificatePath");
+            var certPasscode = Configuration.GetValue<String>("SSL:X509CertificatePasscode");
+            if (string.IsNullOrEmpty(certPath))
+            {
+                throw new ArgumentException("X509CertificatePath is not specified in SSL section");
+            }
+            if (!Path.IsPathRooted(certPath))
+            {
+                certPath = Path.Combine(_env.ContentRootPath, certPath);
+            }
+            var certificate = new X509Certificate2(certPath, certPasscode);
+
+            services.Configure<KestrelServerOptions>(opt =>
+            {
+                opt.UseHttps(certificate);
+            });
+
             services.AddMvc();
         }
 

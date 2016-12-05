@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
@@ -23,7 +23,8 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "IdentityModel": "2.0.1",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
-    "Microsoft.AspNetCore.Authentication.OpenIdConnect": "1.0.0"
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect": "1.0.0",
+    "Microsoft.AspNetCore.Server.Kestrel.Https": "1.0.1"
   },
 
   "tools": {
