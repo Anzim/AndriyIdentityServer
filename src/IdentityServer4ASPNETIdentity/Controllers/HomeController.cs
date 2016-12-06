@@ -39,5 +39,13 @@ namespace IdentityServer4ASPNETIdentity.Controllers
 
             return View("Error", vm);
         }
+
+        public JsonResult Echo(string message)
+        {
+            return Json(new 
+            {
+                Message = message
+            });
+        }
     }
 }
